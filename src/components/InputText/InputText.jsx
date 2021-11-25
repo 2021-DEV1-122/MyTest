@@ -1,22 +1,30 @@
 import React ,{useState} from 'react';
 
-const InputText = () => {
-    const [inputValue, setInputValue] = useState(0);
-
+const InputText = (props) => {
+    const [inputValue, setInputValue] = useState("");
+    const [key] = useState(props.id)
+    const [placeholder] = useState(props.placeholder)
+    const [title] = useState(props.title)
 
     const handleChange = ev => {
         setInputValue(ev.target.value)
     }
 
     return (
-        <div>
-            <input
-                   onChange={handleChange}
-                   value={inputValue}
-                   type="text"
-                   name="input-value"
-            />
-        </div>
+
+
+    <div className="form-group">
+        <label htmlFor={key}>{title}</label>
+        <input
+            className="form-control"
+            id={key}
+            placeholder={placeholder}
+            onChange={handleChange}
+            value={inputValue}
+            type="text"
+            name="input-value"
+        />
+    </div>
     )
 
 }
