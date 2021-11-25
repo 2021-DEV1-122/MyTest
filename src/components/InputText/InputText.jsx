@@ -1,12 +1,24 @@
-import React, {Component} from 'react';
+import React ,{useState} from 'react';
 
-export  default class InputText extends Component {
+const InputText = () => {
+    const [inputValue, setInputValue] = useState(0);
 
-    render() {
-        return (
-            <div>
-            </div>
-        )
+
+    const handleChange = ev => {
+        setInputValue(ev.target.value)
     }
+
+    return (
+        <div>
+            <input
+                   onChange={handleChange}
+                   value={inputValue}
+                   type="text"
+                   name="input-value"
+            />
+        </div>
+    )
+
 }
 
+export default InputText;
