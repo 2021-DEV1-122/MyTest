@@ -1,4 +1,4 @@
-import {mount, shallow} from "enzyme";
+import {shallow} from "enzyme";
 import Game from "./Game";
 import React, {useState as useStateMock} from "react";
 import Board from "../../components/Board/Board";
@@ -51,9 +51,8 @@ describe("<Game />", () => {
     });
 });
 
-describe('mounted Box', () => {
+describe('mounted Board', () => {
     let container;
-
 
 
     function MySpy() {
@@ -68,6 +67,9 @@ describe('mounted Box', () => {
     beforeEach(() => {
         useStateMock.mockImplementation(init => [init, setState]);
         container = shallow(<Board onClick={mockClickComponent} value={Array(9).fill("")}/>)
+    });
+    afterEach(() => {
+        jest.clearAllMocks();
     });
     it('should change positon clicked when the box is clicked', () => {
         container.find('Box').at(0).simulate('click');
