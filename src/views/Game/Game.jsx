@@ -7,8 +7,13 @@ const Game = (props) => {
     const location = useLocation()
     const {player1} = location.state
     const {player2} = location.state
-    const [board, setBoard] = useState(Array(9).fill(""));
-    return (
+    const [board] = useState(Array(9).fill(""));
+
+        const handleInput = (pos) => {
+            console.log(pos)
+        }
+
+        return (
         <div className="container">
             <div className="row">
                 <div className="col-md-6">
@@ -20,7 +25,7 @@ const Game = (props) => {
             </div>
             <div className="row">
                 <div className="col-md-10">
-                    <Board value={board}></Board>
+                    <Board onClick={handleInput} value={board} />
                 </div>
 
             </div>
