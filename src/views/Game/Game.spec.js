@@ -13,9 +13,9 @@ jest.mock("react-router-dom", () => ({
 describe("<Game />", () => {
     it("should render Game with data coming from Home", () => {
         const wrapper = shallow(<Game/>);
-
-        expect(wrapper.find("h1").at(0).text()).toBe("player1")
-        expect(wrapper.find("h1").at(1).text()).toBe("player2")
+        const h1 = wrapper.find("h1");
+        expect(h1.at(0).text()).toBe("player1 : X")
+        expect(h1.at(1).text()).toBe("player2 : O")
 
     });
 
