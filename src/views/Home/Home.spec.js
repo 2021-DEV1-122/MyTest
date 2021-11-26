@@ -10,7 +10,8 @@ describe('<Home>', () => {
 
     it('should render a Two input with button submit', () => {
         expect(wrapper.find('InputText').length).toEqual(2);
-        expect(wrapper.find('button').length).toEqual(1);
+        expect(wrapper.find('Link').length).toEqual(1);
     });
+
 
 });

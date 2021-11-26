@@ -5,11 +5,13 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
 import Home from "./views/Home/Home";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Game from "./views/Game/Game";
 
 ReactDOM.render(
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Home/>}/>
+            <Route path="/game" element={<Game/>}/>
         </Routes>
     </BrowserRouter>,
     document.getElementById('root')
