@@ -10,7 +10,8 @@ jest.mock('react', () => ({
 const props = {
     id: '',
     placeholder: '',
-    title: ''
+    title: '',
+    value : jest.fn(),
 };
 
 describe('<InputText id="id1" placeholder="Enter your userName" title="User One" />', () => {
