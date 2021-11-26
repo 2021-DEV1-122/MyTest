@@ -1,8 +1,12 @@
-import {shallow} from "enzyme";
+import {mount, shallow} from "enzyme";
 import Game from "./Game";
-import React from "react";
+import React, {useState as useStateMock} from "react";
+import Board from "../../components/Board/Board";
 
-
+jest.mock('react', () => ({
+    ...jest.requireActual('react'),
+    useState: jest.fn(),
+}));
 jest.mock("react-router-dom", () => ({
     ...jest.requireActual("react-router-dom"),
     useLocation: () => ({
@@ -10,10 +14,12 @@ jest.mock("react-router-dom", () => ({
         state: {player1: 'player1', player2: 'player2'}
     })
 }));
+const setState = jest.fn();
 describe("<Game />", () => {
     let wrapper;
-    beforeEach(() => {
 
+    beforeEach(() => {
+        useStateMock.mockImplementation(init => [init, setState]);
         wrapper = shallow(<Game/>);
     });
 
@@ -40,7 +46,34 @@ describe("<Game />", () => {
     });
 
     it('should render Board component ', () => {
-        const div = wrapper.find("Board");
-        expect(div.at(0).length).toEqual(1);
+        const border = wrapper.find("Board");
+        expect(border.at(0).length).toEqual(1);
     });
 });
+
+describe('mounted Box', () => {
+    let container;
+
+
+
+    function MySpy() {
+        this.pos = 0;
+    }
+
+    MySpy.prototype.fn = function () {
+        return () => this.pos++;
+    }
+    const mySpy = new MySpy();
+    const mockClickComponent = mySpy.fn();
+    beforeEach(() => {
+        useStateMock.mockImplementation(init => [init, setState]);
+        container = shallow(<Board onClick={mockClickComponent} value={Array(9).fill("")}/>)
+    });
+    it('should change positon clicked when the box is clicked', () => {
+        container.find('Box').at(0).simulate('click');
+
+        expect(mySpy.pos).toEqual(1);
+    });
+})
+
+
