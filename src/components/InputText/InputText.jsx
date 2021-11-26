@@ -8,6 +8,7 @@ const InputText = (props) => {
 
     const handleChange = ev => {
         setInputValue(ev.target.value)
+        props.value(ev.target.value)
     }
 
     return (
