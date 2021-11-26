@@ -11,10 +11,10 @@ const Game = (props) => {
         <div className="container">
             <div className="row">
                 <div className="col-md-6">
-                    <h1>{player1}</h1>
+                    <h1>{player1} : X</h1>
                 </div>
                 <div className="col-md-6">
-                    <h1>{player2}</h1>
+                    <h1>{player2} : O</h1>
                 </div>
             </div>
         </div>
