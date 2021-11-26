@@ -8,10 +8,15 @@ const Game = (props) => {
     const {player2} = location.state
 
     return (
-
-        <div class="col-md-4 col-md-offset-4">
-            <h1>{player1}</h1>
-            <h1>{player2}</h1>
+        <div className="container">
+            <div className="row">
+                <div className="col-md-6">
+                    <h1>{player1}</h1>
+                </div>
+                <div className="col-md-6">
+                    <h1>{player2}</h1>
+                </div>
+            </div>
         </div>
     );
 
