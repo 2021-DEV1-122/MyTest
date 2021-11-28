@@ -3,6 +3,7 @@ import Game from "./Game";
 import React, {useState as useStateMock} from "react";
 import Board from "../../components/Board/Board";
 import Box from "../../components/Box/Box";
+import {isWon} from "../../utils/isWon";
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -50,6 +51,13 @@ describe("<Game />", () => {
         const border = wrapper.find("Board");
         expect(border.at(0).length).toEqual(1);
     });
+    if ('should end game and Player one wins   ', () => {
+
+     const  isWon =  isWon("X","X","X" ,"O","X","O","X","O","X");
+
+      expect(isWon).toEqual(true)
+
+    });
 });
 
 describe('mounted Board', () => {
@@ -86,6 +94,8 @@ describe('mounted Board', () => {
         });
         expect(setState).toHaveBeenCalledWith("X");
     }) ;
+
+
 })
 
 
