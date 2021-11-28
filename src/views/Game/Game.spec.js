@@ -2,6 +2,7 @@ import {shallow} from "enzyme";
 import Game from "./Game";
 import React, {useState as useStateMock} from "react";
 import Board from "../../components/Board/Board";
+import Box from "../../components/Box/Box";
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -71,9 +72,8 @@ describe('mounted Board', () => {
     afterEach(() => {
         jest.clearAllMocks();
     });
-    it('should change positon clicked when the box is clicked', () => {
+    it('should change positon  when the box is clicked', () => {
         container.find('Box').at(0).simulate('click');
-
         expect(mySpy.pos).toEqual(1);
     });
 })

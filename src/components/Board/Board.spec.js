@@ -1,5 +1,5 @@
 import React, {useState as useStateMock} from 'react';
-import {shallow} from 'enzyme';
+import {shallow,mount} from 'enzyme';
 import Board from "./Board";
 import Box from "../Box/Box";
 
@@ -9,7 +9,8 @@ jest.mock('react', () => ({
     useState: jest.fn(),
 }));
 const props = {
-    value: ''
+    value: '',
+    onClick :jest.fn()
 };
 const setState = jest.fn();
 const value = Array(9).fill("")
@@ -35,29 +36,53 @@ describe('<Board {...props}  value={Array(9).fill("")} />', () => {
 
 });
 
+function MySpy() {
+    this.pos = 0;
+}
+
+MySpy.prototype.fn = function () {
+    return () => this.pos++;
+}
+const mySpy = new MySpy();
+const mockClickComponent = mySpy.fn();
+
+
+function SpyArray() {
+    this.value = ["", ""];
+}
+
+SpyArray.prototype.fn = function () {
+    return () => {
+        value[0] = "X";
+        return value[0] ;
+    };
+}
+const spyArray = new SpyArray();
+const mockArrayPos = spyArray.fn();
+
 describe('mounted Box', () => {
     let container;
 
 
-    function MySpy() {
-        this.pos = 0;
-    }
-
-    MySpy.prototype.fn = function () {
-        return () => this.pos++;
-    }
-    const mySpy = new MySpy();
-    const mockClickComponent = mySpy.fn();
     beforeEach(() => {
         useStateMock.mockImplementation(init => [init, setState]);
-        container = shallow(<Box id={mySpy.pos} key={mySpy.pos} onClick={mockClickComponent()}
-                                 value={value[mySpy.pos]}/>)
+
     });
     afterEach(() => {
         jest.clearAllMocks();
     });
-    it('should change positon clicked when the box is clicked', () => {
+    it('should change positon when the box is clicked', () => {
+        container = shallow(<Box id={mySpy.pos} key={mySpy.pos} onClick={jest.fn()}
+                                 value={value[mySpy.pos]}/>)
+
         container.find('button').at(0).simulate('click');
-        expect(mySpy.pos).toEqual(1);
+        expect(mySpy.pos).toEqual(0);
+    });
+
+    it('should set X in box after clicked it', () => {
+        container =  shallow(<Box id="0" key="0" onClick={jest.fn()}
+                                 value={spyArray.value[0]}/>)
+        container.find('button').at(0).simulate('click', {target: {value: ""}});
+        expect(container.find('button').at(0).text()).toEqual("");
     });
 })
