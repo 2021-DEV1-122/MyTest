@@ -76,6 +76,16 @@ describe('mounted Board', () => {
         container.find('Box').at(0).simulate('click');
         expect(mySpy.pos).toEqual(1);
     });
+
+    if ('should player 1 play first ', () => {
+        container.find('Box').at(0).simulate('click', {
+            target:
+                {
+                    value: 'X'
+                }
+        });
+        expect(setState).toHaveBeenCalledWith("X");
+    }) ;
 })
 
 
