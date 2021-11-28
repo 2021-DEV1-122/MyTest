@@ -3,7 +3,6 @@ import Box from "../Box/Box";
 
 const Board = (props) => {
 
-    const [value] = useState(props.value);
 
     const style = {
         width: "250px",
@@ -15,7 +14,7 @@ const Board = (props) => {
     return (
         <div style={style}>
             {[...Array(9)].map((_, pos) => <Box key={pos} onClick={() => props.onClick(pos)}
-                                                value={value[pos]}/>)}
+                                                value={props.value[pos]}/>)}
         </div>
     );
 }
