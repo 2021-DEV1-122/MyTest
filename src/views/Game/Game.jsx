@@ -17,6 +17,9 @@ const Game = (props) => {
         boardCopy[pos] = getSymbole();
         setBoard(boardCopy);
 
+        alert( nextPlayer() + " going to play ")
+        currentPlayer = setCurrentPlayer(nextPlayer())
+        currentSymbole = setCurrentSymbole(getSymbole())
 
 
 
