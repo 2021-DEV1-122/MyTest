@@ -1,33 +1,49 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import {useLocation} from "react-router-dom";
 import Board from "../../components/Board/Board";
-import useForceUpdate from "use-force-update";
+import {isWon} from "../../utils/isWon";
 
 const Game = (props) => {
 
     const location = useLocation()
     const {player1} = location.state
     const {player2} = location.state
-    const [board,setBoard] = useState(Array(9).fill("."));
-    let [currentPlayer,setCurrentPlayer] = useState(player1);
-    let [currentSymbole,setCurrentSymbole] = useState("X");
+    const [board, setBoard] = useState(Array(9).fill("."));
+    let [currentPlayer, setCurrentPlayer] = useState(player1);
+    let [currentSymbole, setCurrentSymbole] = useState("X");
+    let [isGameFinish, setIsGameFinish] = useState(false);
 
-    const handleInput =  (pos) => {
+
+    const handleInput = (pos) => {
+
+
+        if (isGameFinish) {
+            return;
+        }
         let boardCopy = [...board];
         boardCopy[pos] = getSymbole();
         setBoard(boardCopy);
+        if (isWon(boardCopy)) {
+            // once game is over
+            alert(`WON: ${currentPlayer}`)
+            // since the game is over putting ""
+            setIsGameFinish(true);
+            return;
+        }
 
-        alert( nextPlayer() + " going to play ")
-        currentPlayer = setCurrentPlayer(nextPlayer())
-        currentSymbole = setCurrentSymbole(getSymbole())
-
-
-
-
+        if (boardCopy.indexOf(".") === -1) {
+            // if no more moves game is draw
+            alert("the Game is DRAW")
+            setIsGameFinish(true);
+        } else {
+            alert(nextPlayer() + " going to play ")
+            currentPlayer = setCurrentPlayer(nextPlayer())
+            currentSymbole = setCurrentSymbole(getSymbole())
+        }
     }
 
     const nextPlayer = () => {
-        return currentPlayer == player1 ? player2 : player1 ;
+        return currentPlayer == player1 ? player2 : player1;
     }
 
     const getSymbole = () => {
@@ -46,7 +62,7 @@ const Game = (props) => {
             </div>
             <div className="row">
                 <div className="col-md-10">
-                    <Board onClick={handleInput} value={board} />
+                    <Board onClick={handleInput} value={board}/>
                 </div>
 
             </div>

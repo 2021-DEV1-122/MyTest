@@ -43,7 +43,7 @@ describe('<InputText id="id1" placeholder="Enter your userName" title="User One"
         expect(setState).toHaveBeenCalledWith("Test");
     });
 
-    it('renders a Input with id of "id1" and placeholder message of "Enter your userName" and  title message of "User One"', () => {
+    it('renders an input with id of "id1" and placeholder message of "Enter your userName" and  title message of "User One"', () => {
         const label = wrapper.find("label").at(0);
         expect(inputValue.prop('id')).toBe('id1');
         expect(inputValue.prop("placeholder")).toBe('Enter your userName');
